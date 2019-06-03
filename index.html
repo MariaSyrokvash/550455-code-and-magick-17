@@ -187,19 +187,19 @@
 
   var getFireballSpeed = function (left) {
     return left ? 5 : 2;
-    };
+  };
 
   var getWizardHeight = function () {
     return 1.337 * wizardWidth;
   };
 
   var getWizardX = function (width) {
-    return (width / 2) - (wizardWidth / 2); //Задать положение мага по горизонтали, чтобы центр фигурки мага находился посередине игрового поля.
+    return (width / 2) - (wizardWidth / 2);
   };
 
   var getWizardY  = function (height) {
-    return height / 3 * 2 - getWizardHeight(); //Задать положение мага по вертикали так, чтобы маг появлялся на высоте две трети игрового поля от земли.
-};
+    return height / 3 * 2 - getWizardHeight();
+  };
 </script>
 <script src="js/game.js"></script>
 
