@@ -17,7 +17,7 @@ var getArrayRandomValue = function (array) {
   return array[Math.floor(Math.random() * array.length)];
 };
 
-var getArrayOfWizardsObjects = function (name, surname, coatColor, eyesColor, number) {
+var getArrayOfWizardsObjects = function (number) {
   var wizards = [];
 
   for (var i = 0; i < number; i++) {
