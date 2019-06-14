@@ -2,12 +2,6 @@
 
 var userDialog = document.querySelector('.setup');
 userDialog.classList.remove('hidden');
-var fragment = document.createDocumentFragment();
-var similarListElement = document.querySelector('.setup-similar-list'); // элемент, в который мы будем вставлять похожих магов.
-var similarWizardTemplate = document.querySelector('#similar-wizard-template') // шаблон, который мы будем копировать
-    .content
-    .querySelector('.setup-similar-item');
-
 var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 var WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
@@ -27,12 +21,16 @@ var getArrayOfWizardsObjects = function (number) {
       coatColor: getArrayRandomValue(COAT_COLORS),
       eyesColor: getArrayRandomValue(EYES_COLORS),
     };
+
     wizards.push(wizard);
   }
   return wizards;
 };
 
 var setWizardInfo = function (wizard) {
+  var similarWizardTemplate = document.querySelector('#similar-wizard-template') // шаблон, который мы будем копировать
+    .content
+    .querySelector('.setup-similar-item');
   var wizardElement = similarWizardTemplate.cloneNode(true);
 
   wizardElement.querySelector('.setup-similar-label').textContent = wizard.name + ' ' + wizard.surname;
@@ -42,10 +40,17 @@ var setWizardInfo = function (wizard) {
   return wizardElement;
 };
 
-var wizards = getArrayOfWizardsObjects(4);
-for (var i = 0; i < wizards.length; i++) {
-  fragment.appendChild(setWizardInfo(wizards[i]));
-}
-similarListElement.appendChild(fragment);
+var renderWizardsList = function () {
+  var fragment = document.createDocumentFragment();
+  var similarListElement = document.querySelector('.setup-similar-list'); // элемент, в который мы будем вставлять похожих магов.
+  var wizards = getArrayOfWizardsObjects(4);
+  userDialog.querySelector('.setup-similar').classList.remove('hidden');
 
-userDialog.querySelector('.setup-similar').classList.remove('hidden');
+  for (var i = 0; i < wizards.length; i++) {
+    fragment.appendChild(setWizardInfo(wizards[i]));
+  }
+
+  similarListElement.appendChild(fragment);
+};
+
+renderWizardsList();
