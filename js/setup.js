@@ -10,8 +10,6 @@ var ENTER_KEYCODE = 13;
 var setup = document.querySelector('.setup');
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = setup.querySelector('.setup-close');
-var inputUserName = setup.querySelector('.setup-user-name');
-
 var wizardCoat = document.querySelector('.wizard-coat');
 var wizardEyes = document.querySelector('.wizard-eyes');
 var wizardFireballColor = document.querySelector('.setup-fireball-wrap');
@@ -65,8 +63,9 @@ renderWizardsList(getArrayOfWizardsObjects(4));
 
 setup.querySelector('.setup-similar').classList.remove('hidden');
 
+
 var onPopupEscPress = function (evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
+  if (evt.keyCode === ESC_KEYCODE && evt.target.tagName !== 'INPUT') {
     closePopup();
   }
 };
@@ -74,9 +73,6 @@ var onPopupEscPress = function (evt) {
 var openPopup = function () {
   setup.classList.remove('hidden');
   document.addEventListener('keydown', onPopupEscPress);
-  inputUserName.addEventListener('focus', function () {
-    document.removeEventListener('keydown', onPopupEscPress);
-  });
 
   wizardCoat.addEventListener('click', onWizardCoatClick);
   wizardEyes.addEventListener('click', onWizardEyesClick);
@@ -86,28 +82,19 @@ var openPopup = function () {
 var closePopup = function () {
   setup.classList.add('hidden');
   document.removeEventListener('keydown', onPopupEscPress);
+
   wizardCoat.removeEventListener('click', onWizardCoatClick);
   wizardEyes.removeEventListener('click', onWizardEyesClick);
   wizardFireballColor.removeEventListener('click', onWizardFireballColorClick);
 };
 
-
 setupOpen.addEventListener('click', openPopup);
-
 
 setupOpen.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
     openPopup();
   }
 });
-
-
-inputUserName.addEventListener('focus', function (evt) {
-  if (evt.target.tagName === 'INPUT') {
-    document.addEventListener('keydown', onPopupEscPress);
-  }
-});
-
 
 setupClose.addEventListener('click', function () {
   closePopup();
@@ -126,13 +113,11 @@ var onWizardCoatClick = function () {
   inputWizardCoat.value = color;
 };
 
-
 var onWizardEyesClick = function () {
   var color = getArrayRandomValue(EYES_COLORS);
   wizardEyes.style.fill = color;
   inputWizardEyes.value = color;
 };
-
 
 var onWizardFireballColorClick = function () {
   var color = getArrayRandomValue(FIREBALL_COLORS);
