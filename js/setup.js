@@ -15,9 +15,9 @@ var inputUserName = setup.querySelector('.setup-user-name');
 var wizardCoat = document.querySelector('.wizard-coat');
 var wizardEyes = document.querySelector('.wizard-eyes');
 var wizardFireballColor = document.querySelector('.setup-fireball-wrap');
-var inputWizardCoat = document.getElementsByName('coat-color');
-var inputWizardEyes = document.getElementsByName('eyes-color');
-var inputWizardFireballColor = document.getElementsByName('fireball-color');
+var inputWizardCoat = document.querySelector('input[name="coat-color"]');
+var inputWizardEyes = document.querySelector('input[name="eyes-color"]');
+var inputWizardFireballColor = document.querySelector('input[name="fireball-color"]');
 
 var getArrayRandomValue = function (array) {
   return array[Math.floor(Math.random() * array.length)];
@@ -77,9 +77,7 @@ var openPopup = function () {
   inputUserName.addEventListener('focus', function () {
     document.removeEventListener('keydown', onPopupEscPress);
   });
-  inputUserName.addEventListener('blur', function () {
-    document.addEventListener('keydown', onPopupEscPress);
-  });
+
   wizardCoat.addEventListener('click', onWizardCoatClick);
   wizardEyes.addEventListener('click', onWizardEyesClick);
   wizardFireballColor.addEventListener('click', onWizardFireballColorClick);
@@ -93,13 +91,23 @@ var closePopup = function () {
   wizardFireballColor.removeEventListener('click', onWizardFireballColorClick);
 };
 
+
 setupOpen.addEventListener('click', openPopup);
+
 
 setupOpen.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
     openPopup();
   }
 });
+
+
+inputUserName.addEventListener('focus', function (evt) {
+  if (evt.target.tagName === 'INPUT') {
+    document.addEventListener('keydown', onPopupEscPress);
+  }
+});
+
 
 setupClose.addEventListener('click', function () {
   closePopup();
@@ -111,17 +119,20 @@ setupClose.addEventListener('keydown', function (evt) {
   }
 });
 
+
 var onWizardCoatClick = function () {
   var color = getArrayRandomValue(COAT_COLORS);
   wizardCoat.style.fill = color;
   inputWizardCoat.value = color;
 };
 
+
 var onWizardEyesClick = function () {
   var color = getArrayRandomValue(EYES_COLORS);
   wizardEyes.style.fill = color;
   inputWizardEyes.value = color;
 };
+
 
 var onWizardFireballColorClick = function () {
   var color = getArrayRandomValue(FIREBALL_COLORS);
