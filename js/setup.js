@@ -72,6 +72,7 @@ var onPopupEscPress = function (evt) {
 
 var openPopup = function () {
   setup.classList.remove('hidden');
+
   document.addEventListener('keydown', onPopupEscPress);
 
   wizardCoat.addEventListener('click', onWizardCoatClick);
@@ -81,6 +82,7 @@ var openPopup = function () {
 
 var closePopup = function () {
   setup.classList.add('hidden');
+
   document.removeEventListener('keydown', onPopupEscPress);
 
   wizardCoat.removeEventListener('click', onWizardCoatClick);
@@ -109,18 +111,21 @@ setupClose.addEventListener('keydown', function (evt) {
 
 var onWizardCoatClick = function () {
   var color = getArrayRandomValue(COAT_COLORS);
+
   wizardCoat.style.fill = color;
   inputWizardCoat.value = color;
 };
 
 var onWizardEyesClick = function () {
   var color = getArrayRandomValue(EYES_COLORS);
+
   wizardEyes.style.fill = color;
   inputWizardEyes.value = color;
 };
 
 var onWizardFireballColorClick = function () {
   var color = getArrayRandomValue(FIREBALL_COLORS);
+
   wizardFireballColor.style.background = color;
   inputWizardFireballColor.value = color;
 };
